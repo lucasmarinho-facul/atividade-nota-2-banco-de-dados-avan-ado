@@ -200,7 +200,7 @@ GO
 /* ---------------------------------------------------------------------
    8. (OPCIONAL) Login SQL dedicado para a aplicação Python
    Requer autenticação mista habilitada na instância
-   (SSMS > Propriedades do servidor > Segurança > "SQL Server and Windows Authentication").
+   (SSMS > Propriedades do servidor > Segurança > "SQL Server and Windows Authentication").PetVida@2026!
    --------------------------------------------------------------------- */
 /*
 

@@ -1,19 +1,23 @@
 import pyodbc
+import config
+
 
 def montar_connection_string():
-
-    conn_str = (
-        r"Driver={SQL Server};"
-        r"Server=DESKTOP-9A9754E\SQLEXPRESS;"
-        r"Database=PetVida;"
-        r"UID=petvida_app;"
-        r"PWD=PetVida@2026!;"
+    string_de_conexao = (
+        "DRIVER={SQL Server};"
+        + "SERVER=" + config.server
+        + "DATABASE=PetVida;"
+        + "UID=" + config.usuario + ";"
+        + "PWD=" + config.senha + ";"
     )
-    return conn_str
+
+    return string_de_conexao
+
 
 def conectar():
-    conexao = pyodbc.connect(montar_connection_string(),autocommit=False)
-    return conexao
+    conexao_com_banco_de_dados = pyodbc.connect(montar_connection_string(),autocommit=False)
+
+    return conexao_com_banco_de_dados
 
 def testar_conexao():
     conexao = conectar()

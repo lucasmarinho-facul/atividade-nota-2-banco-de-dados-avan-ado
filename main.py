@@ -1,29 +1,8 @@
-
+import pyodbc
 from datetime import datetime
-
+import config
 from db import testar_conexao
-from repositorio import (
-    criar_tutor,
-    buscar_tutor,
-    listar_tutores,
-    atualizar_tutor,
-    excluir_tutor,
-    criar_pet,
-    atualizar_peso_pet,
-    transferir_pet,
-    excluir_pet,
-    listar_pets_do_tutor,
-    buscar_pet_com_tutor,
-    agendar_consulta,
-    adicionar_procedimento,
-    remover_procedimento,
-    listar_procedimentos_da_consulta,
-    listar_consultas_por_procedimento,
-    total_da_consulta,
-    atualizar_status_consulta,
-    excluir_consulta,
-    historico_do_pet
-)
+from repositorio import *
 
 
 def ler_numero(mensagem):
@@ -519,40 +498,96 @@ def menu_consultas():
 def testar_conexao_banco():
     dados_da_conexao = testar_conexao()
 
-    print("\n--- TESTE DE CONEXAO ---")
+    print("\nConexao realizada com sucesso!")
     print("Servidor:", dados_da_conexao["servidor"])
-    print("Banco de dados:", dados_da_conexao["banco"])
-    print("Versao do SQL Server:", dados_da_conexao["versao_sql_server"])
+    print("Banco:", dados_da_conexao["banco"])
+    print("Versao:", dados_da_conexao["versao_sql_server"])
+
+
+def autenticar_usuario_sql():
+    while True:
+        print("\nCriando string de conexao.")
+        print("Digite suas credenciais do SQL Server.")
+
+        config.usuario = input(
+            "Usuario SQL Server: "
+        ).strip()
+
+        config.senha = input(
+            "Senha SQL Server: "
+        )
+
+        try:
+            dados_da_conexao = testar_conexao()
+
+            print("\nConexao realizada com sucesso!")
+            print("Servidor:", dados_da_conexao["servidor"])
+            print("Banco:", dados_da_conexao["banco"])
+            print("Versao:", dados_da_conexao["versao_sql_server"])
+
+            return True
+
+        except pyodbc.Error:
+            print("\nFalha na conexao.")
+            print("Verifique o usuario, a senha e o servidor.")
+
+            tentar_novamente = input(
+                "Deseja tentar novamente? (s/n): "
+            ).strip().lower()
+
+            if tentar_novamente != "s":
+                return False
 
 
 def executar_menu_principal():
+    autenticado = autenticar_usuario_sql()
+
+    if not autenticado:
+        print("Acesso nao realizado. Sistema encerrado.")
+        return
+
+    print("\nAcesso liberado para o menu principal.")
+
     while True:
         print("\n========== PETVIDA ==========")
-        print("1 - Gerenciar tutores")
-        print("2 - Gerenciar pets")
-        print("3 - Gerenciar consultas")
-        print("4 - Testar conexao com o banco")
-        print("0 - Sair")
+        print("[1] Testar conexao com o banco")
+        print("[2] Questao 2 - Gerenciamento de tutores")
+        print("[3] Questao 3 - Gerenciamento de pets")
+        print("[4] Questao 4 - Consultas e procedimentos")
+        print("[5] Bonus - Historico do pet")
+        print("[0] Finalizar o sistema")
 
-        opcao = input("Escolha uma opcao: ").strip()
+        opcao = input("Digite uma opcao: ").strip().lower()
+
+        if opcao == "0":
+            print("Sistema encerrado.")
+            break
 
         try:
             if opcao == "1":
-                menu_tutores()
-            elif opcao == "2":
-                menu_pets()
-            elif opcao == "3":
-                menu_consultas()
-            elif opcao == "4":
                 testar_conexao_banco()
-            elif opcao == "0":
-                print("Sistema encerrado.")
-                break
+
+            elif opcao == "2":
+                menu_tutores()
+
+            elif opcao == "3":
+                menu_pets()
+
+            elif opcao == "4":
+                menu_consultas()
+
+            elif opcao == "5":
+                consultar_historico_pet()
+
             else:
                 print("Opcao invalida.")
 
         except ValueError as erro:
             print("Erro nos dados informados:", erro)
+
+        except pyodbc.Error as erro:
+            print("Erro ao executar operacao no banco de dados.")
+            print("Detalhes:", erro)
 
         except Exception as erro:
             print("Nao foi possivel concluir a operacao.")
