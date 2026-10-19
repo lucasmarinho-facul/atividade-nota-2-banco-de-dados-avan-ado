@@ -129,7 +129,7 @@ Para encerrar o sistema, selecione a opção de finalização apresentada no men
 - Exclusão de pets.
 <img width="381" height="285" alt="excluir_pet" src="https://github.com/user-attachments/assets/fb17af5c-be72-488f-b6ec-4dfb29a69ee2" />
 
-Erro de FK pois é tentado usar um pet cadastrado em uma consulta existente
+Erro de FK pois é tentado excluir um pet cadastrado em uma consulta existente
 
 - Listagem dos pets de um tutor.
 <img width="686" height="215" alt="listar_pets_do_tutor" src="https://github.com/user-attachments/assets/3c3a48a0-133d-4342-b334-fdba89ce6f15" />
