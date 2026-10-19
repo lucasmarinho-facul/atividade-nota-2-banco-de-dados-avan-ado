@@ -156,7 +156,6 @@ Para encerrar o sistema, selecione a opção de finalização apresentada no men
 <img width="330" height="232" alt="custo_consulta" src="https://github.com/user-attachments/assets/d7c5d907-4149-424f-9285-c61be83c6c8b" />
 
 - Atualização do status da consulta.
-<img width="399" height="235" alt="excluir_consulta" src="https://github.com/user-attachments/assets/a758d781-6396-4649-8e0a-02e79aacd21f" />
 <img width="402" height="256" alt="atualizar_status" src="https://github.com/user-attachments/assets/741965cb-9883-479b-bee0-be724143d74a" />
 
 - Exclusão de consultas.
