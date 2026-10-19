@@ -5,7 +5,7 @@ import config
 def montar_connection_string():
     string_de_conexao = (
         "DRIVER={SQL Server};"
-        + "SERVER=" + config.server
+        + "SERVER=" + config.server +";"
         + "DATABASE=PetVida;"
         + "UID=" + config.usuario + ";"
         + "PWD=" + config.senha + ";"
