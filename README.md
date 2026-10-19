@@ -1,4 +1,4 @@
-# PetVida — Python + SQL Server
+# PetVida — Conexão Python + SQL Server
 
 Projeto desenvolvido em Python para a atividade **Desafio Técnico — Conexão Python + SQL Server com pyodbc**.
 
@@ -6,9 +6,9 @@ O objetivo é implementar uma camada de acesso a dados para o banco de dados Pet
 
 ## 1. Tecnologias utilizadas
 
-- **Python:** implementação da aplicação.
+- **Python:** linguagem utilizada no desenvolvimento da aplicação.
 - **Microsoft SQL Server:** sistema gerenciador do banco de dados.
-- **pyodbc:** biblioteca utilizada para conectar o Python ao SQL Server.
+- **pyodbc:** biblioteca utilizada para estabelecer a conexão entre Python e SQL Server.
 
 ## 2. Estrutura do projeto
 
@@ -24,51 +24,44 @@ PetVida/
 
 | Arquivo | Responsabilidade |
 |---|---|
-| `config.py` | Armazena temporariamente as credenciais utilizadas na conexão. |
-| `db.py` | Monta a string de conexão, estabelece a conexão e testa o acesso ao banco. |
-| `repositorio.py` | Implementa as operações de acesso e manipulação dos dados. |
-| `main.py` | Apresenta o menu de terminal e permite acessar as funcionalidades do sistema. |
-| `01_estrutura_petvida.sql` | Contém o script SQL para criação e configuração da estrutura do banco de dados. |
+| `config.py` | Define a instância do servidor e as variáveis utilizadas para as credenciais de acesso. |
+| `db.py` | Monta a string de conexão, estabelece a conexão e testa o acesso ao banco de dados. |
+| `repositorio.py` | Implementa as operações de consulta e manipulação dos dados. |
+| `main.py` | Solicita as credenciais, testa a conexão e apresenta o menu principal do sistema. |
+| `01_estrutura_petvida.sql` | Contém o script SQL para criação e preenchimento inicial do banco de dados. |
 
 ## 3. Requisitos para execução
 
-Antes de executar o projeto, verifique se o ambiente possui:
+Antes de executar o projeto, é necessário possuir:
 
 - Python instalado.
-- Microsoft SQL Server instalado e em execução.
-- Banco de dados `PetVida` criado conforme o script SQL fornecido na atividade.
-- Driver ODBC compatível com o SQL Server instalado.
-- Permissões de acesso ao banco de dados.
+- Microsoft SQL Server instalado e em execução, localmente ou em um servidor acessível.
+- Driver ODBC compatível com o SQL Server.
+- Banco de dados `PetVida` criado e populado conforme o script SQL da atividade.
+- Um login do SQL Server com as permissões necessárias para utilizar o banco.
 - Biblioteca Python `pyodbc` instalada.
 
-## 4. Configuração das variáveis
+## 4. Configuração do servidor, usuário e senha
 
-No arquivo `config.py`, as variáveis de usuário e senha devem permanecer vazias inicialmente:
+A conexão com o banco de dados utiliza três informações principais: o servidor, o usuário e a senha.
 
-```python
-usuario = ""
-senha = ""
-```
+### 4.1. Configuração do servidor — `server`
 
-As credenciais são solicitadas durante a execução do programa e utilizadas para montar a string de conexão com o SQL Server.
-
-No arquivo `db.py`, deve ser configurado o nome da instância do SQL Server utilizada no ambiente.
+No arquivo `config.py`, a variável `server` identifica a instância do SQL Server à qual a aplicação tentará se conectar.
 
 Exemplo:
 
 ```python
-"SERVER=DESKTOP-9A9754E\\SQLEXPRESS;"
+usuario = ""
+senha = ""
+server = "DESKTOP-9A9754E\\SQLEXPRESS"
 ```
 
-O nome do servidor deve corresponder à instância instalada no computador. Caso seja utilizada outra instância, esse valor deverá ser atualizado.
+Nesse exemplo, `DESKTOP-9A9754E` representa o nome do computador e `SQLEXPRESS` representa o nome da instância do SQL Server.
 
-### Configuração da autenticação
+**O valor deve ser ajustado conforme o ambiente utilizado.** Caso o SQL Server esteja instalado em outro computador ou utilize outra instância, informe o nome correto do servidor.
 
-A instância do SQL Server deve aceitar a autenticação utilizada pela aplicação.
-
-Neste projeto, o programa solicita um usuário e uma senha do SQL Server durante a inicialização. As credenciais informadas precisam pertencer a um login válido, com as permissões necessárias para acessar o banco `PetVida` e executar as operações implementadas.
-
-As credenciais não devem ser armazenadas diretamente no código-fonte nem compartilhadas em repositórios públicos.
+A variável `server` deve conter somente o nome da instância, sem o prefixo `SERVER=` e sem ponto e vírgula no final. O arquivo `db.py` acrescenta esses elementos ao montar a string de conexão.
 
 ## 5. Instalação da dependência
 
@@ -78,7 +71,7 @@ Abra o terminal na pasta do projeto e execute:
 pip install pyodbc
 ```
 
-Também é necessário ter o driver ODBC do SQL Server instalado e configurado no sistema operacional.
+Também é necessário instalar um driver ODBC compatível com a versão do SQL Server utilizada.
 
 ## 6. Como executar o projeto
 
@@ -88,62 +81,48 @@ Na pasta principal do projeto, execute:
 python main.py
 ```
 
-O programa solicitará as credenciais do SQL Server e tentará estabelecer a conexão com o banco de dados.
+O programa solicitará o usuário e a senha do SQL Server. Após uma conexão bem-sucedida, serão exibidas as informações da conexão e o menu principal ficará disponível.
 
-Após uma conexão bem-sucedida, serão exibidas as informações do servidor, do banco de dados e da versão do SQL Server. Em seguida, o menu principal permitirá acessar as funcionalidades implementadas no repositório.
+O menu permite acessar as funcionalidades de gerenciamento de tutores, pets, consultas veterinárias e procedimentos, além da consulta ao histórico do pet.
 
-Caso a conexão falhe, o programa permitirá tentar novamente. Se o problema persistir, verifique o nome da instância, as credenciais, o método de autenticação, as permissões do login e a disponibilidade do servidor.
+Para encerrar o sistema, selecione a opção de finalização apresentada no menu.
 
 ## 7. Funcionalidades implementadas
 
 ### Questão 1 — Conexão com o banco de dados
 
 - Montagem da string de conexão.
-- Estabelecimento da conexão com o SQL Server.
-- Teste de conexão.
+- Estabelecimento e teste da conexão.
 - Consulta das informações do servidor, do banco e da versão do SQL Server.
 
 ### Questão 2 — Gerenciamento de tutores
 
 - Cadastro de tutores.
 - Busca de tutor por ID.
-- Listagem de tutores com possibilidade de filtro por nome.
+- Listagem de tutores com filtro por nome.
 - Atualização dos dados de um tutor.
 - Exclusão de tutores.
 
 ### Questão 3 — Gerenciamento de pets
 
-- Cadastro de pets vinculados aos tutores.
-- Atualização do peso do pet.
+- Cadastro de pets vinculados a tutores.
+- Atualização do peso.
 - Transferência de pet para outro tutor.
 - Exclusão de pets.
 - Listagem dos pets de um tutor.
-- Busca de pet com os dados do tutor associado.
+- Busca de pet com os dados do tutor responsável.
 
 ### Questão 4 — Consultas e procedimentos
 
-- Agendamento de consultas veterinárias.
-- Adição e remoção de procedimentos de uma consulta.
+- Agendamento de consultas.
+- Adição e remoção de procedimentos.
 - Listagem dos procedimentos de uma consulta.
-- Busca de consultas por procedimento.
+- Consulta de atendimentos por procedimento.
 - Cálculo do valor total de uma consulta.
 - Atualização do status da consulta.
 - Exclusão de consultas.
 
 ### Bônus — Histórico do pet
 
-- Consulta do histórico de atendimentos do pet, utilizando a estrutura de dados disponibilizada pelo banco de dados.
+- Consulta ao histórico de atendimentos de um pet por meio da estrutura disponibilizada no banco de dados.
 
-## 8. Tratamento de erros e segurança
-
-O projeto utiliza consultas SQL parametrizadas para separar os comandos SQL dos valores informados pelo usuário, reduzindo o risco de injeção de SQL.
-
-As conexões e os cursores são fechados após o uso, inclusive em situações de erro. As operações que exigem consistência dos dados devem utilizar transações, com confirmação ou cancelamento conforme o resultado da operação.
-
-As credenciais de acesso devem ser mantidas fora do código-fonte versionado.
-
-## 9. Considerações finais
-
-O projeto demonstra a integração entre Python e Microsoft SQL Server por meio da biblioteca `pyodbc`, organizando a conexão com o banco, as operações de acesso a dados e a interação com o usuário em arquivos separados.
-
-Essa organização facilita a manutenção do código e a evolução do sistema, além de permitir praticar operações CRUD, consultas relacionais, transações e tratamento de erros em uma aplicação de gerenciamento veterinário.
