@@ -42,8 +42,7 @@ def cadastrar_tutor():
     telefone = ler_texto_opcional("Telefone (opcional): ")
 
     identificador_tutor = criar_tutor(
-        nome, cpf, email, telefone
-    )
+        nome, cpf, email, telefone)
 
     print("Tutor cadastrado com sucesso.")
     print("ID do tutor:", identificador_tutor)
@@ -90,8 +89,7 @@ def editar_tutor():
 
     atualizado = atualizar_tutor(
         identificador_tutor,
-        **campos_para_atualizar
-    )
+        **campos_para_atualizar)
 
     if atualizado:
         print("Tutor atualizado com sucesso.")
@@ -103,8 +101,7 @@ def remover_tutor():
     identificador_tutor = ler_numero("ID do tutor: ")
 
     confirmacao = input(
-        "Deseja realmente excluir este tutor? (s/n): "
-    ).strip().lower()
+        "Deseja realmente excluir este tutor? (s/n): ").strip().lower()
 
     if confirmacao != "s":
         print("Exclusao cancelada.")
@@ -155,19 +152,16 @@ def cadastrar_pet():
     raca = ler_texto_opcional("Raca (opcional): ")
 
     data_nascimento_informada = input(
-        "Data de nascimento (AAAA-MM-DD) ou vazio: "
-    ).strip()
+        "Data de nascimento (AAAA-MM-DD) ou vazio: ").strip()
 
     data_nascimento = None
 
     if data_nascimento_informada != "":
         data_nascimento = datetime.strptime(
-            data_nascimento_informada, "%Y-%m-%d"
-        ).date()
+            data_nascimento_informada, "%Y-%m-%d").date()
 
     peso_informado = input(
-        "Peso em kg ou vazio: "
-    ).strip()
+        "Peso em kg ou vazio: ").strip()
 
     peso_kg = None
 
@@ -180,8 +174,7 @@ def cadastrar_pet():
         especie,
         raca,
         data_nascimento,
-        peso_kg
-    )
+        peso_kg)
 
     print("Pet cadastrado com sucesso.")
     print("ID do pet:", identificador_pet)
@@ -202,12 +195,10 @@ def consultar_pet_e_tutor():
 def editar_peso_pet():
     identificador_pet = ler_numero("ID do pet: ")
     peso_kg = float(
-        input("Novo peso em kg: ").replace(",", ".")
-    )
+        input("Novo peso em kg: ").replace(",", "."))
 
     atualizado = atualizar_peso_pet(
-        identificador_pet, peso_kg
-    )
+        identificador_pet, peso_kg)
 
     if atualizado:
         print("Peso atualizado com sucesso.")
@@ -218,8 +209,7 @@ def editar_peso_pet():
 def transferir_pet_para_outro_tutor():
     identificador_pet = ler_numero("ID do pet: ")
     novo_identificador_tutor = ler_numero(
-        "ID do novo tutor: "
-    )
+        "ID do novo tutor: ")
 
     transferido = transferir_pet(
         identificador_pet,
@@ -294,13 +284,10 @@ def menu_pets():
 def ler_procedimentos():
     print(
         "Informe os procedimentos no formato "
-        "ID:quantidade, separados por virgula."
-    )
+        "ID:quantidade, separados por virgula.")
     print("Exemplo: 1:2,3:1")
 
-    procedimentos_informados = input(
-        "Procedimentos: "
-    ).strip()
+    procedimentos_informados = input("Procedimentos: ").strip()
 
     procedimentos = []
 
@@ -312,8 +299,7 @@ def ler_procedimentos():
 
         if len(partes) != 2:
             raise ValueError(
-                "Use o formato ID:quantidade. Exemplo: 1:2,3:1"
-            )
+                "Use o formato ID:quantidade. Exemplo: 1:2,3:1")
 
         identificador_procedimento = int(partes[0])
         quantidade = int(partes[1])
@@ -321,9 +307,7 @@ def ler_procedimentos():
         if quantidade <= 0:
             raise ValueError("A quantidade deve ser maior que zero.")
 
-        procedimentos.append(
-            (identificador_procedimento, quantidade)
-        )
+        procedimentos.append((identificador_procedimento, quantidade))
 
     if len(procedimentos) == 0:
         raise ValueError("Informe pelo menos um procedimento.")
@@ -333,18 +317,13 @@ def ler_procedimentos():
 
 def cadastrar_consulta():
     identificador_pet = ler_numero("ID do pet: ")
-    identificador_veterinario = ler_numero(
-        "ID do veterinario: "
-    )
+    identificador_veterinario = ler_numero("ID do veterinario: ")
 
     data_hora_informada = input(
-        "Data e hora (AAAA-MM-DD HH:MM:SS): "
-    ).strip()
+        "Data e hora (AAAA-MM-DD HH:MM:SS): ").strip()
 
-    data_hora = datetime.strptime(
-        data_hora_informada,
-        "%Y-%m-%d %H:%M:%S"
-    )
+    data_hora = datetime.strptime(data_hora_informada,
+        "%Y-%m-%d %H:%M:%S")
 
     motivo = input("Motivo da consulta: ").strip()
     procedimentos = ler_procedimentos()
@@ -354,8 +333,7 @@ def cadastrar_consulta():
         identificador_veterinario,
         data_hora,
         motivo,
-        procedimentos
-    )
+        procedimentos)
 
     print("Consulta agendada com sucesso.")
     print("ID da consulta:", identificador_consulta)
@@ -365,8 +343,7 @@ def consultar_procedimentos_consulta():
     identificador_consulta = ler_numero("ID da consulta: ")
 
     procedimentos = listar_procedimentos_da_consulta(
-        identificador_consulta
-    )
+        identificador_consulta)
 
     mostrar_resultado(procedimentos)
 
@@ -374,8 +351,8 @@ def consultar_procedimentos_consulta():
 def incluir_procedimento_consulta():
     identificador_consulta = ler_numero("ID da consulta: ")
     identificador_procedimento = ler_numero(
-        "ID do procedimento: "
-    )
+        "ID do procedimento: ")
+    
     quantidade = ler_numero("Quantidade: ")
 
     adicionado = adicionar_procedimento(
@@ -391,13 +368,11 @@ def incluir_procedimento_consulta():
 def retirar_procedimento_consulta():
     identificador_consulta = ler_numero("ID da consulta: ")
     identificador_procedimento = ler_numero(
-        "ID do procedimento: "
-    )
+        "ID do procedimento: ")
 
     removido = remover_procedimento(
         identificador_consulta,
-        identificador_procedimento
-    )
+        identificador_procedimento)
 
     if removido:
         print("Procedimento removido com sucesso.")
@@ -412,12 +387,10 @@ def consultar_total_consulta():
 
 def consultar_consultas_procedimento():
     identificador_procedimento = ler_numero(
-        "ID do procedimento: "
-    )
+        "ID do procedimento: ")
 
     consultas = listar_consultas_por_procedimento(
-        identificador_procedimento
-    )
+        identificador_procedimento)
 
     mostrar_resultado(consultas)
 
@@ -430,8 +403,7 @@ def alterar_status_consulta():
 
     atualizado = atualizar_status_consulta(
         identificador_consulta,
-        novo_status
-    )
+        novo_status)
 
     if atualizado:
         print("Status atualizado com sucesso.")
@@ -509,13 +481,9 @@ def autenticar_usuario_sql():
         print("\nCriando string de conexao.")
         print("Digite suas credenciais do SQL Server.")
 
-        config.usuario = input(
-            "Usuario SQL Server: "
-        ).strip()
+        config.usuario = input("Usuario SQL Server: ").strip()
 
-        config.senha = input(
-            "Senha SQL Server: "
-        )
+        config.senha = input("Senha SQL Server: ").strip()
 
         try:
             dados_da_conexao = testar_conexao()
@@ -531,9 +499,7 @@ def autenticar_usuario_sql():
             print("\nFalha na conexao.")
             print("Verifique o usuario, a senha e o servidor.")
 
-            tentar_novamente = input(
-                "Deseja tentar novamente? (s/n): "
-            ).strip().lower()
+            tentar_novamente = input("Deseja tentar novamente? (s/n): ").strip().lower()
 
             if tentar_novamente != "s":
                 return False

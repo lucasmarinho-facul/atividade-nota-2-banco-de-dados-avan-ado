@@ -1,4 +1,4 @@
 
 usuario = ""
 senha = ""
-server = "DESKTOP-9A9754E\SQLEXPRESS;"
+server = "DESKTOP-9A9754E\SQLEXPRESS"
