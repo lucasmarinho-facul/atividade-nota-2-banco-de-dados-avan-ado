@@ -160,7 +160,8 @@ Para encerrar o sistema, selecione a opção de finalização apresentada no men
 <img width="402" height="256" alt="atualizar_status" src="https://github.com/user-attachments/assets/741965cb-9883-479b-bee0-be724143d74a" />
 
 - Exclusão de consultas.
-![Uploading excluir_consulta.png…]()
+<img width="399" height="235" alt="excluir_consulta" src="https://github.com/user-attachments/assets/6cbc8b60-6db3-49fb-a627-a8ed2057e3fe" />
+
 
 ### Bônus — Histórico do pet
 
